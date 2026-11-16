@@ -1,25 +1,21 @@
-/* Leonardo Egea Rodríguez */
 /* Selección de elementos DOM */
 /* Trae el botón y el contenedor donde se mostrarán las noticias */
 const botonRefrescar = document.getElementById('btn-refresh');
 const contenedorNoticias = document.getElementById('contenedor-noticias');
 
-/* API KEY para enlazar con GNEWS */
-const API_KEY = '59ceab18a2d20af1771529a8cebabf84'; 
+/* API KEY de NewsData.io (La que me compartiste) */
+const API_KEY = 'pub_708023beb20844169a62b5d76d094da6'; 
 
 /* Función principal: Cargar Noticias con Fetch */
 function cargarNoticias() {
     /* Muestra el mensaje de "Cargando..." mientras la API responde */
     contenedorNoticias.innerHTML = '<p style="color:white; text-align:center; font-size:20px; font-weight:bold; margin-top:20px;">Actualizando el feed de noticias...</p>';
 
-    /* Se definió la URL de la API de GNews con noticias de México en idioma español */
-    const urlOriginal = `https://gnews.io/api/v4/search?lang=es&country=mx&max=10&apikey=${API_KEY}`;
-    
-    /* Usamos un proxy público (allorigins) para evitar el bloqueo de seguridad CORS */
-    const urlProxy = `https://api.allorigins.win/get?url=${encodeURIComponent(urlOriginal)}`;
+    /* URL de la API (Noticias de México en español) */
+    const url = `https://newsdata.io/api/1/latest?apikey=${API_KEY}&country=mx&language=es`;
 
-    /* Función fetch  apuntando al proxy */
-    fetch(urlProxy)
+    /* Función fetch (Lección 10) */
+    fetch(url)
         .then(function(respuesta) {
             /* Verifica si la respuesta HTTP fue exitosa */
             if (!respuesta.ok) {
@@ -29,22 +25,17 @@ function cargarNoticias() {
             return respuesta.json();
         })
         .then(function(datos) {
-            /* El proxy devuelve los datos de GNews como texto en 'contents'. 
-               Usamos JSON.parse para convertirlo en un objeto de JavaScript. */
-            const noticiasJSON = JSON.parse(datos.contents);
-            
-            /* Verifica si el arreglo 'articles' tiene contenido */
-            if (noticiasJSON.articles && noticiasJSON.articles.length > 0) {
+            /* NewsData.io devuelve las noticias en el arreglo 'results' */
+            if (datos.results && datos.results.length > 0) {
                 /* Se llama a la función que muestra las noticias en el HTML */
-                mostrarNoticias(noticiasJSON.articles);
+                mostrarNoticias(datos.results);
             } else {
-                /* Si no hay noticias se muestra aviso de que no hay noticias actuales */
+                /* Si no hay noticias se muestra aviso */
                 contenedorNoticias.innerHTML = '<p style="color:white; text-align:center; font-size:20px; margin-top:20px;">No hay noticias disponibles en este momento.</p>';
             }
         })
         .catch(function(error) {
-            /* Manejo de errores: si falla el internet, la API o la clave */
-            /* Se muestra un mensaje de alerta */
+            /* Manejo de errores: si falla el internet o la API */
             contenedorNoticias.innerHTML = `
                 <div style="background-color: red; color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 18px; font-weight: bold; margin-top: 20px; border: 2px solid white;">
                     Error de conexión: ${error.message} <br> 
@@ -55,7 +46,7 @@ function cargarNoticias() {
 
 /* Función para mostrar las noticias */
 function mostrarNoticias(noticias) {
-    /* Limpia el contenedor para quitar el mensaje de "Cargando..." */
+    /* Limpia el contenedor */
     contenedorNoticias.innerHTML = '';
 
     /* Recorre el arreglo de noticias con un bucle */
@@ -67,13 +58,17 @@ function mostrarNoticias(noticias) {
         const tarjeta = document.createElement('div');
         tarjeta.className = 'tarjeta-noticia'; 
 
-       /* Se envuelve el título en un enlace <a> para que al hacer clic abra la noticia */
+        /* NewsData.io usa 'link' para el enlace y a veces la descripción es nula */
+        const enlace = noticia.link;
+        const descripcion = noticia.description ? noticia.description : "Sin descripción disponible.";
+
+        /* Se envuelve el título en un enlace <a> para que al hacer clic abra la noticia */
         tarjeta.innerHTML = `
-            <a href="${noticia.url}" target="_blank" style="text-decoration: none; color: #1e3a8a;">
+            <a href="${enlace}" target="_blank" style="text-decoration: none; color: #1e3a8a;">
                 <h2>${noticia.title}</h2>
             </a>
-            <p>${noticia.description}</p>
-            <a href="${noticia.url}" target="_blank">Leer noticia completa</a>
+            <p>${descripcion}</p>
+            <a href="${enlace}" target="_blank">Leer noticia completa</a>
         `;
 
         /* Agrega la tarjeta al contenedor principal */
