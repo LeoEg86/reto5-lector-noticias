@@ -3,7 +3,7 @@
 const botonRefrescar = document.getElementById('btn-refresh');
 const contenedorNoticias = document.getElementById('contenedor-noticias');
 
-/* API KEY de NewsData.io (La que me compartiste) */
+/* API KEY de NewsData.io  */
 const API_KEY = 'pub_708023beb20844169a62b5d76d094da6'; 
 
 /* Función principal: Cargar Noticias con Fetch */
