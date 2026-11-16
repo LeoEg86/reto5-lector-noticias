@@ -1,3 +1,4 @@
+/* Leonardo Egea Rodríguez */
 /* Selección de elementos DOM */
 /* Trae el botón y el contenedor donde se mostrarán las noticias */
 const botonRefrescar = document.getElementById('btn-refresh');
@@ -12,10 +13,13 @@ function cargarNoticias() {
     contenedorNoticias.innerHTML = '<p style="color:white; text-align:center; font-size:20px; font-weight:bold; margin-top:20px;">Actualizando el feed de noticias...</p>';
 
     /* Se definió la URL de la API de GNews con noticias de México en idioma español */
-    const url = `https://gnews.io/api/v4/search?max=10&apikey=••••••••=${API_KEY}`;
+    const urlOriginal = `https://gnews.io/api/v4/search?lang=es&country=mx&max=10&apikey=${API_KEY}`;
+    
+    /* Usamos un proxy público (allorigins) para evitar el bloqueo de seguridad CORS */
+    const urlProxy = `https://api.allorigins.win/get?url=${encodeURIComponent(urlOriginal)}`;
 
-    /* Función fetch (Lección 10) */
-    fetch(url)
+    /* Función fetch  apuntando al proxy */
+    fetch(urlProxy)
         .then(function(respuesta) {
             /* Verifica si la respuesta HTTP fue exitosa */
             if (!respuesta.ok) {
@@ -25,11 +29,14 @@ function cargarNoticias() {
             return respuesta.json();
         })
         .then(function(datos) {
-            /* 'datos' ya es un objeto de JavaScript. */
+            /* El proxy devuelve los datos de GNews como texto en 'contents'. 
+               Usamos JSON.parse para convertirlo en un objeto de JavaScript. */
+            const noticiasJSON = JSON.parse(datos.contents);
+            
             /* Verifica si el arreglo 'articles' tiene contenido */
-            if (datos.articles && datos.articles.length > 0) {
+            if (noticiasJSON.articles && noticiasJSON.articles.length > 0) {
                 /* Se llama a la función que muestra las noticias en el HTML */
-                mostrarNoticias(datos.articles);
+                mostrarNoticias(noticiasJSON.articles);
             } else {
                 /* Si no hay noticias se muestra aviso de que no hay noticias actuales */
                 contenedorNoticias.innerHTML = '<p style="color:white; text-align:center; font-size:20px; margin-top:20px;">No hay noticias disponibles en este momento.</p>';
@@ -60,8 +67,11 @@ function mostrarNoticias(noticias) {
         const tarjeta = document.createElement('div');
         tarjeta.className = 'tarjeta-noticia'; 
 
+       /* Se envuelve el título en un enlace <a> para que al hacer clic abra la noticia */
         tarjeta.innerHTML = `
-            <h2>${noticia.title}</h2>
+            <a href="${noticia.url}" target="_blank" style="text-decoration: none; color: #1e3a8a;">
+                <h2>${noticia.title}</h2>
+            </a>
             <p>${noticia.description}</p>
             <a href="${noticia.url}" target="_blank">Leer noticia completa</a>
         `;
