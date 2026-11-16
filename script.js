@@ -12,7 +12,7 @@ function cargarNoticias() {
     contenedorNoticias.innerHTML = '<p style="color:white; text-align:center; font-size:20px; font-weight:bold; margin-top:20px;">Actualizando el feed de noticias...</p>';
 
     /* Se definió la URL de la API de GNews con noticias de México en idioma español */
-    const url = `https://gnews.io/api/v4/search?lang=es&country=mx&max=10&apikey=${API_KEY}`;
+    const url = `https://gnews.io/api/v4/search?max=10&apikey=••••••••=${API_KEY}`;
 
     /* Función fetch (Lección 10) */
     fetch(url)
