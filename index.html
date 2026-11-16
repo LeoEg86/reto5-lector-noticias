@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lector de Noticias</title>
+    <!-- Enlaza el archivo HTML con el CSS -->
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <!-- Contenedor con el encabezado de la página -->
+    <div id="encabezado">
+        
+        <!-- Imagen Breaking News -->
+        <img src="https://img.magnific.com/free-vector/global-breaking-news-reporting-background-with-world-map-design_1017-62378.jpg?semt=ais_hybrid&w=740&q=80" alt="Breaking News" id="imagen-breaking">
+
+        <!-- Encabezado -->
+        <h1>Lector de Noticias</h1>
+
+        <!-- Botón para que la persona usuaria pueda refrescar las noticias sin necesidad de recargar toda la página -->
+        <!-- Activa la llamada a la API -->
+        <button id="btn-refresh">Cargar nuevas noticias</button>
+    </div>
+
+    <!-- Contenedor principal donde se mostrarán las noticias -->
+    <div id="contenedor-noticias">
+        <!-- Mensaje de inicio -->
+        <p class="mensaje-inicial">Presiona el botón "Cargar nuevas noticias" para mostrar las noticias más actuales.</p>
+    </div>
+    
+    <!-- Enlazar el archivo de JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>

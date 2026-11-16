@@ -1,0 +1,79 @@
+/* Estilos Generales*/
+body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipografía */
+    /*Se aplica imagen de fondo*/
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/013/704/508/original/world-map-background-news-studio-background-for-news-report-and-breaking-news-on-world-live-report-video.jpg');
+    background-size: cover; /* Hace que la imagen cubra toda la pantalla */
+    background-position: center; /* Centra la imagen */
+    background-attachment: fixed; /* La imagen se queda fija al hacer scroll */
+    background-color: #1e293b; /* Color de respaldo por si la imagen no carga */
+    
+    color: #334155; 
+    margin: 0;
+    padding: 0;
+}
+
+#imagen-breaking{
+    width: 50%; /* Hace que la imagen ocupe la mitad del ancho */
+    max-height: 150px; /* Limita la altura para que no se vea muy grande */
+    object-fit: cover; /* Recorta la imagen para que no se deforme */
+    display: block; /* Quita el espacio en blanco */
+    margin: 0 auto 15px auto; /* Centra la imagen */
+    border-radius: 8px; /* redondear bordes de la imagen */
+}
+
+#encabezado{
+    background-color: rgba(30, 58, 138, 0.9); /* Azul oscuro */
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 4px solid #f59e0b; /* Línea naranja decorativa abajo */
+}
+
+#btn-refresh {
+    background-color: #f59e0b !important; /* Fondo naranja */
+    color: #1e293b !important; /* Texto azul oscuro */
+    border: none !important;
+    padding: 12px 24px !important; /* Más espacio interno */
+    font-size: 16px !important;
+    font-weight: bold !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    margin-top: 15px !important;
+    transition: background-color 0.3s !important;
+    display: inline-block; /* Para que respete el padding */
+}
+
+#btn-refresh:hover {
+    background-color: #d97706 !important; /* Naranja más oscuro */
+    color: #ffffff !important; /* Texto blanco al pasar el mouse */
+}
+
+#contenedor-noticias{
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px; 
+}
+
+.mensaje-inicial {
+    background-color: rgba(22, 58, 156, 0.9); /* Fondo azul oscuro traslucido */
+    color: #ffffff; /* Texto blanco */
+    padding: 15px 25px; /* Espacio interno */
+    border-radius: 8px; /* Bordes redondeados */
+    text-align: center; /* Centrado */
+    font-size: 18px; /* Tamaño de letra */
+    font-weight: bold; /* Negritas */
+    max-width: 600px; /* Que no ocupe toda la pantalla */
+    margin: 40px auto; /* Centrado vertical y horizontalmente */
+    border: 1px solid #f59e0b; /* Un borde naranja sutil para que combine con el botón */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Sombra para que flote sobre el fondo */
+}
+
+.tarjeta-noticia {
+    background-color: #ffffff; /* Fondo blanco para asegurar la lectura */
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(27, 27, 27, 0.3); /* Sombra más marcada para que resalte sobre el fondo */
+} 
